@@ -9,13 +9,16 @@ import ua.com.transitkyiv.transitkyiv.repository.ResponsesRepository;
 @Service
 public class ResponsesService {
 
+    // репозиторий отзывов
     private final ResponsesRepository responsesRepository;
 
+    // связываем с сервисом
     @Autowired
     public ResponsesService(ResponsesRepository responsesRepository){
         this.responsesRepository = responsesRepository;
     }
 
+    // метод сохранения отзыва пользователя
     public void saveNewResponse(String responsetext, String username){
         Responses responses = new Responses();
         responses.setResponseText(responsetext);

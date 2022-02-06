@@ -11,13 +11,16 @@ import java.util.List;
 @Service
 public class TransportsService {
 
+    // репозиторий транспорта
     private final TransportsRepository transportsRepository;
 
+    // связываем с сервисом
     @Autowired
     public TransportsService(TransportsRepository transportsRepository){
         this.transportsRepository = transportsRepository;
     }
 
+    // метод получения списка всего транспорта
     public List<Transports> getAllTransports(){
         return transportsRepository.findAll();
     }
