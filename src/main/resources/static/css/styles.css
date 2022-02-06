@@ -1,0 +1,77 @@
+a.noline{
+    text-decoration: none;
+}
+
+a.disabled{
+    pointer-events: none;
+}
+
+a.dtxt{
+    font-family: 'Roboto';
+    font-size: 40px;
+    font-weight: 300;
+    color: #000;
+}
+
+h1.gradtxt {
+    font-size: 78px;
+    font-family: 'Roboto';
+    font-weight: 700;
+    background: -webkit-linear-gradient(#00FF57, #0057FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+h2.deftxt{
+    font-family: 'Roboto';
+    font-size: 40px;
+    font-weight: 300;
+}
+
+h2.bigtxt{
+    font-family: 'Roboto';
+    font-size: 48px;
+    font-weight: 300;
+}
+
+h2.lowtxt{
+    font-family: 'Roboto';
+    font-size: 24px;
+    font-weight: 300;
+}
+
+button.gradbtn{
+    font-family: 'Roboto';
+    font-size: 30px;
+    font-weight: 700;
+    background: -webkit-linear-gradient(#00FF57, #0057FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+a.routelink:link{
+    color: black;
+}
+
+a.routelink:visited{
+    color: #000;
+}
+
+a.routelink:hover{
+    color: white;
+}
+
+img.btnimg:hover{
+    outline: lightgreen;
+    outline-style:solid;
+}
+
+.btn-outline-success:hover{
+    background-color: #00C392 !important;
+}
+
+#author{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}

@@ -1,0 +1,15 @@
+<svg width="311" height="194" viewBox="0 0 311 194" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="310.4" height="155.2" rx="10" fill="#E3CE0E"/>
+<rect x="15.52" y="31.04" width="77.6" height="38.8" rx="5" fill="#C0D6FF"/>
+<rect x="100.88" y="31.04" width="77.6" height="38.8" rx="5" fill="#C0D6FF"/>
+<rect x="186.24" y="31.04" width="77.6" height="38.8" rx="5" fill="#C0D6FF"/>
+<rect y="108.64" width="15.52" height="34.92" rx="6" fill="#C4C4C4"/>
+<rect y="100.88" width="15.52" height="15.52" rx="6" fill="#FF5555"/>
+<rect x="294.88" y="108.64" width="15.52" height="19.4" rx="6" fill="#FF5555"/>
+<rect x="271.6" y="19.4" width="38.8" height="77.6" rx="5" fill="#C0D6FF"/>
+<rect x="294.88" y="100.88" width="15.52" height="15.52" rx="6" fill="#FF9C55"/>
+<circle cx="58.2" cy="155.2" r="38.8" fill="#212D34"/>
+<circle cx="58.2" cy="155.2" r="11.64" fill="white"/>
+<circle cx="252.2" cy="155.2" r="38.8" fill="#212D34"/>
+<circle cx="252.2" cy="155.2" r="11.64" fill="white"/>
+</svg>
