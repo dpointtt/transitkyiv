@@ -20,6 +20,7 @@
     <h2 class="bigtxt">${routeV.transports_.transport} ${routeV.routeNumber}</h2>
     <div class="text-start bg-light mt-5 p-4">
         <h1 class="gradtxt text-center mb-4" style="font-size: 48px;">Інформація:</h1>
+        <#if routeV.driver??><h2 class="deftxt mb-3">Водій: ${routeV.driver.firstName} ${routeV.driver.lastName}</h2></#if>
         <h2 class="deftxt mb-3">Маршрут: ${routeV.routeStart} &mdash; ${routeV.routeEnd}</h2>
         <h2 class="deftxt mb-3">Дні роботи: ${routeV.schedule_}</h2>
         <h2 class="deftxt mb-3">Час роботи: ${routeV.timeStart}&mdash;${routeV.timeEnd}</h2>
