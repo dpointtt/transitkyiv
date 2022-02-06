@@ -15,15 +15,19 @@ import ua.com.transitkyiv.transitkyiv.service.TransportsService;
 @ComponentScan()
 public class TransportsTestController {
 
+    // сервис транспорта
     private final TransportsService transportsService;
 
+    // связываем с контролером
     @Autowired
     public TransportsTestController(TransportsService transportsService){
         this.transportsService = transportsService;
     }
 
+    // прослушиваем страницу с транспортом(в проекте не используется)
     @RequestMapping(value = { "/transportlist" }, method = RequestMethod.GET)
     public String transportPage(Model model){
+        // передаем список транспорта
         model.addAttribute("transports", transportsService.getAllTransports());
         return "transportlist";
     }

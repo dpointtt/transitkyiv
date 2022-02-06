@@ -20,16 +20,20 @@ import java.util.Objects;
 @ComponentScan()
 public class ResponsesController {
 
+    // сервис отзывов
     private final ResponsesService responsesService;
 
+    // связываем с контроллером
     @Autowired
     public ResponsesController(ResponsesService responsesService){
         this.responsesService = responsesService;
     }
 
+    // прослушивание страницы отзывов
     @RequestMapping(value = {"/send-response"}, method = RequestMethod.GET)
     public String viewSendResponsePage(HttpServletRequest request){
         HttpSession session = request.getSession();
+        // проверка вошел ли пользователь в систему
         if(Objects.nonNull(session.getAttribute("user"))){
             return "sendresponse";
         }else{
@@ -37,6 +41,7 @@ public class ResponsesController {
         }
     }
 
+    // обработка отправленного отзыва и вывод страницы об успешной отправке
     @RequestMapping(value = {"/send-response"}, method = RequestMethod.POST)
     public String sendResponseTK(@RequestParam String responseText, HttpServletRequest request){
         HttpSession session = request.getSession();

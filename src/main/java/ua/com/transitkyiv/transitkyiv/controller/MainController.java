@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @ComponentScan()
 public class MainController {
 
+    // главная страница
     @GetMapping("/")
     public String viewHome(){
         return "index";
