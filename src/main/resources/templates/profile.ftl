@@ -24,7 +24,7 @@
     <h2 class="deftxt mb-3">Прізвище: ${userinfo.lastName}</h2>
     <div class="text-center mt-3 p-4">
       <h2 class="deftxt text-center mb-4" style="font-size: 48px;">Дії:</h2>
-      <form action="/profile" method="post">
+      <form action="/logout" method="post">
         <button type="submit" class="gradbtn btn btn-success mt-4">Вихід</button>
       </form>
     </div>

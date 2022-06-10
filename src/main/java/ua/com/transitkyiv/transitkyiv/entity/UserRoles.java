@@ -21,7 +21,7 @@ public class UserRoles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String role;
+    private String tkRole;
 
     @ManyToOne
     @JoinColumn(name = "tk_user_id")

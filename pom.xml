@@ -52,7 +52,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.25</version>
+            <version>8.0.27</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -73,7 +73,7 @@
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
-            <version>5.1.1</version>
+            <version>5.1.3</version>
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
@@ -92,12 +92,12 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>8.4.3</version>
+            <version>8.5.10</version>
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-mysql</artifactId>
-            <version>8.4.3</version>
+            <version>8.5.10</version>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
@@ -111,6 +111,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${project.parent.version}</version>
                 <configuration>
                     <excludes>
                         <exclude>
@@ -125,7 +126,7 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>8.4.4</version>
                 <configuration>
-                    <url>jdbc:mysql://localhost:3306/transitkyivdb?useSSL=false</url>
+                    <url>jdbc:mysql://localhost:3306/transitkyivdb?allowPublicKeyRetrieval=true&amp;useSSL=false</url>
                     <user>root</user>
                     <password>root</password>
                 </configuration>

@@ -5,7 +5,9 @@ import ua.com.transitkyiv.transitkyiv.entity.Users;
 
 public interface UsersRepository extends JpaRepository<Users, Long> {
     // посик пользователя по логину и паролю
-    Users findByUserNameAndPassword(String UserName, String Password);
+    Users findByUserNameAndTkpassword(String UserName, String Tkpassword);
     // поиск пользователя по имени
     Users findByUserName(String UserName);
+
+    void deleteByUserName(String userName);
 }

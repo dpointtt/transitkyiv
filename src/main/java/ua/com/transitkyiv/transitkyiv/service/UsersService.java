@@ -7,6 +7,8 @@ import ua.com.transitkyiv.transitkyiv.entity.Users;
 import ua.com.transitkyiv.transitkyiv.repository.UserRolesRepository;
 import ua.com.transitkyiv.transitkyiv.repository.UsersRepository;
 
+import java.util.List;
+
 @Service
 public class UsersService {
 
@@ -23,7 +25,7 @@ public class UsersService {
 
     // метод по которому узнаем есть ли такой пользователь в базе даних
     public boolean isUser(String username, String password){
-        Users users = usersRepository.findByUserNameAndPassword(username, password);
+        Users users = usersRepository.findByUserNameAndTkpassword(username, password);
         return users != null;
     }
 
@@ -44,16 +46,27 @@ public class UsersService {
     }
 
     // метод который добавляет для нового пользователя роль
-    public void saveNewUserRole(Users users){
+    public void saveNewUserRole(Users users, String role){
         UserRoles userRoles = new UserRoles();
-        userRoles.setRole("user");
+        userRoles.setTkRole(role);
         userRoles.setTkuser(users);
 
         userRolesRepository.save(userRoles);
     }
 
     // метод который возвращает роль, если пользователь админ(проверка на админ права)
-    public UserRoles getUserRolesByUser(Users users){
-        return userRolesRepository.findUserRolesByTkuserAndRoleEquals(users, "admin");
+    public UserRoles checkAdmin(Users users){
+        return userRolesRepository.findUserRolesByTkuserAndTkRoleEquals(users, "admin");
     }
+
+    // get all users
+    public List<Users> getAllUsers(){
+        return usersRepository.findAll();
+    }
+
+    //delete user by userName
+    public void deleteUserByUserName(String userName){
+        usersRepository.deleteByUserName(userName);
+    }
+
 }

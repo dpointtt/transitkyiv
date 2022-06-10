@@ -62,12 +62,12 @@ CREATE TABLE IF NOT EXISTS `stops` (
 -- Table `transitkyivdb`.`route_stops`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `route_stops` (
-    `route_stops_id` BIGINT NOT NULL AUTO_INCREMENT,
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
     `route_id` BIGINT NOT NULL,
     `stop_id` BIGINT NOT NULL,
     INDEX `fk_route_stops_stops1_idx` (`stop_id` ASC) VISIBLE,
     INDEX `fk_route_stops_routes1_idx` (`route_id` ASC) VISIBLE,
-    PRIMARY KEY (`route_stops_id`),
+    PRIMARY KEY (`id`),
     CONSTRAINT `fk_route_stops_stops1`
     FOREIGN KEY (`stop_id`)
     REFERENCES `stops` (`id`)
@@ -75,9 +75,7 @@ CREATE TABLE IF NOT EXISTS `route_stops` (
     ON UPDATE CASCADE,
     CONSTRAINT `fk_route_stops_routes1`
     FOREIGN KEY (`route_id`)
-    REFERENCES `routes` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    REFERENCES `routes` (`id`))
     ENGINE = InnoDB;
 
 
@@ -89,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `tk_user` (
      `user_name` VARCHAR(15) NOT NULL,
      `first_name` VARCHAR(55) NOT NULL,
      `last_name` VARCHAR(55) NOT NULL,
-     `password_` VARCHAR(100) NOT NULL,
+     `tkpassword` VARCHAR(100) NOT NULL,
      PRIMARY KEY (`id`))
     ENGINE = InnoDB;
 
@@ -100,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `tk_user` (
 CREATE TABLE IF NOT EXISTS `user_roles` (
     `id` BIGINT NOT NULL AUTO_INCREMENT,
     `tk_role` VARCHAR(45) NOT NULL,
-    `tk_user_id` INT NOT NULL,
+    `tk_user_id` BIGINT NOT NULL,
      PRIMARY KEY (`id`),
      INDEX `fk_user_roles_tk_user1_idx` (`tk_user_id` ASC) VISIBLE,
      CONSTRAINT `fk_user_roles_tk_user1`

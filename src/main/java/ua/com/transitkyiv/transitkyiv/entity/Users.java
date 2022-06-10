@@ -28,9 +28,15 @@ public class Users {
 
     private String lastName;
 
-    private String password;
+    private String tkpassword;
 
     @OneToMany(mappedBy = "tkuser")
     private List<UserRoles> userRolesList;
 
+    public Users(String userName, String firstName, String lastName, String userPassword) {
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.tkpassword = userPassword;
+    }
 }

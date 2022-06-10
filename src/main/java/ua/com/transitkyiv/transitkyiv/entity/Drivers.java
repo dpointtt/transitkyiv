@@ -31,4 +31,9 @@ public class Drivers {
     private Routes route;
 
 
+    public Drivers(String firstName, String lastName, Integer age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+    }
 }

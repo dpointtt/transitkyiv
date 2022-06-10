@@ -23,4 +23,8 @@ public class Stops {
     @OneToMany(mappedBy = "stop_")
     private List<RouteStops> routeStopsList;
 
+    public Stops(String stopAddress) {
+        this.stopAddress = stopAddress;
+    }
+
 }

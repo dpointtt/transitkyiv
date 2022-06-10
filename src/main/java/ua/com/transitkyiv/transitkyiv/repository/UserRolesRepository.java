@@ -6,5 +6,5 @@ import ua.com.transitkyiv.transitkyiv.entity.Users;
 
 public interface UserRolesRepository extends JpaRepository<UserRoles, Long> {
     // для проверки есть ли у пользователя определенная роль
-    UserRoles findUserRolesByTkuserAndRoleEquals(Users TKuser, String Role);
+    UserRoles findUserRolesByTkuserAndTkRoleEquals(Users TKuser, String TkRole);
 }

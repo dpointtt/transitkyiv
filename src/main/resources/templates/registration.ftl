@@ -34,7 +34,7 @@
         <@spring.showErrors "<br>" /><br><br>
 
         <h2 class="lowtxt mb-1">Пароль</h2>
-        <@spring.formInput "tkusers.password" />
+        <@spring.formInput "tkusers.tkpassword" />
         <@spring.showErrors "<br>" /><br><br><br>
 
         <button class="gradbtn btn btn-success" type="submit" value="addUser">Зареєструватися</button>

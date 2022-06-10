@@ -7,10 +7,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import ua.com.transitkyiv.transitkyiv.entity.Drivers;
+import ua.com.transitkyiv.transitkyiv.entity.Stops;
 import ua.com.transitkyiv.transitkyiv.entity.Users;
+import ua.com.transitkyiv.transitkyiv.service.DriversService;
+import ua.com.transitkyiv.transitkyiv.service.StopsService;
 import ua.com.transitkyiv.transitkyiv.service.UsersService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,11 +27,17 @@ public class UsersController {
 
     // сервис пользователей
     private final UsersService usersService;
+    private final DriversService driversService;
+    private final StopsService stopsService;
 
     // свзяываем с контроллером
     @Autowired
-    public UsersController(UsersService usersService){
+    public UsersController(UsersService usersService,
+                           DriversService driversService,
+                           StopsService stopsService) {
         this.usersService = usersService;
+        this.driversService = driversService;
+        this.stopsService = stopsService;
     }
 
     // LOGIN
@@ -72,7 +80,7 @@ public class UsersController {
     // REGISTRATION
 
     // прослушивание страницы регистрации
-    @RequestMapping(value = {"/registration"}, method = RequestMethod.GET)
+    @GetMapping("/registration")
     public String getRegPage(Model model, HttpServletRequest request){
         HttpSession session = request.getSession();
         Users users = (Users) session.getAttribute("user");
@@ -88,7 +96,7 @@ public class UsersController {
     }
 
     // обработка регистрации пользователя
-    @RequestMapping(value = {"/registration"}, method = RequestMethod.POST)
+    @PostMapping("/registration")
     public String addUserToDB(@Valid Users users, BindingResult bindingResult, Model model){
         // проверка на ошибки и на существование пользователя с таким же логином
         if(bindingResult.hasErrors() || usersService.isUserByUserName(users.getUserName())){
@@ -97,7 +105,7 @@ public class UsersController {
             // добавляем нового пользователя
             usersService.saveNewUser(users);
             // устанавливаем новому пользователю роль user
-            usersService.saveNewUserRole(users);
+            usersService.saveNewUserRole(users, "user");
             // передаем пользователя
             model.addAttribute("new_user", users);
             return "registrationsuccess";
@@ -107,7 +115,7 @@ public class UsersController {
     // PROFILE
 
     // прослушивание страницы профиля
-    @RequestMapping(value = {"/profile"}, method = RequestMethod.GET)
+    @GetMapping("/profile")
     public String viewProfile(HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
         Users users = (Users) session.getAttribute("user");
@@ -123,7 +131,7 @@ public class UsersController {
 
     // обработка выхода из профиля
     // происходит удаление аттрибута сессии
-    @RequestMapping(value = {"/profile"}, method = RequestMethod.POST)
+    @PostMapping("/logout")
     public String logOutFromAccount(HttpServletRequest request){
         HttpSession session = request.getSession();
         // удаление аттрибута
@@ -134,17 +142,75 @@ public class UsersController {
     // ADMIN PAGES
 
     // прослушивание страницы для админов
-    @RequestMapping(value = {"/admin"}, method = RequestMethod.GET)
+    @GetMapping("/admin")
     public String viewAdminPage(HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
         Users users = (Users) session.getAttribute("user");
         // проверка на роль пользователя
-        if(Objects.nonNull(usersService.getUserRolesByUser(users))){
+        if(Objects.nonNull(usersService.checkAdmin(users))){
+            model.addAttribute("users", usersService.getAllUsers());
+            model.addAttribute("drivers", driversService.getAllDrivers());
+            model.addAttribute("stops", stopsService.getAllStops());
             return "adminpage";
         }else{
             // при неудачной проверке отправляем страницу с ошибкой
             model.addAttribute("errortype", "accessdenied");
             return "errorpage";
+        }
+    }
+
+    @PostMapping("/admin/add-user")
+    public String addUser(String firstName,
+                          String lastName,
+                          String userName,
+                          String userPassword,
+                          String userRole,
+                          HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Users users = (Users) session.getAttribute("user");
+        // проверка на роль пользователя
+        if (Objects.nonNull(usersService.checkAdmin(users))) {
+            if (!usersService.isUserByUserName(userName)) {
+                // добавляем нового пользователя
+                Users user = new Users(userName, firstName, lastName, userPassword);
+                usersService.saveNewUser(user);
+                // устанавливаем новому пользователю роль user
+                usersService.saveNewUserRole(user, userRole);
+            }
+        }
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/admin/add-driver")
+    public String addDriver(String firstName,
+                            String lastName,
+                            Integer age,
+                            HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Users users = (Users) session.getAttribute("user");
+        if (Objects.nonNull(usersService.checkAdmin(users))) {
+            // добавляем нового водителя
+            Drivers driver = new Drivers(firstName, lastName, age);
+            driversService.save(driver);
+            return "redirect:/admin";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+    @PostMapping("/admin/add-stop")
+    // add stop by stopAddress
+    public String addStop(String stopAddress,
+                          HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Users users = (Users) session.getAttribute("user");
+        if (Objects.nonNull(usersService.checkAdmin(users)) && !stopsService.checkIfStopExists(stopAddress)) {
+            // добавляем новую станцию
+            Stops stop = new Stops(stopAddress);
+            stopsService.save(stop);
+            return "redirect:/admin";
+        } else {
+            return "redirect:/login";
         }
     }
 
