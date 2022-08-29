@@ -18,25 +18,19 @@
 
 <div class="container text-center" style="margin-top: 120px; margin-bottom: 100px;">
     <h1 class="gradtxt">Реєстрація</h1>
-    <@spring.bind "tkusers" />
+    <#if invalidInput??>
+        <h2 class="lowtxt mb-1" style="color: red">${invalidInput?string}</h2>
+    </#if>
 
     <form action="/registration" method="post">
         <h2 class="lowtxt mb-1">Ім'я</h2>
-        <@spring.formInput "tkusers.firstName" />
-        <@spring.showErrors "<br>" /><br><br>
-
+        <input type="text" name="firstName">
         <h2 class="lowtxt mb-1">Прізвище</h2>
-        <@spring.formInput "tkusers.lastName" />
-        <@spring.showErrors "<br>" /><br><br>
-
+        <input type="text" name="lastName">
         <h2 class="lowtxt mb-1">Логін</h2>
-        <@spring.formInput "tkusers.userName" />
-        <@spring.showErrors "<br>" /><br><br>
-
+        <input type="text" name="userName">
         <h2 class="lowtxt mb-1">Пароль</h2>
-        <@spring.formInput "tkusers.tkpassword" />
-        <@spring.showErrors "<br>" /><br><br><br>
-
+        <input type="password" name="tkpassword"><br><br>
         <button class="gradbtn btn btn-success" type="submit" value="addUser">Зареєструватися</button>
     </form>
 </div>

@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ua.com.transitkyiv.transitkyiv.entity.Drivers;
 import ua.com.transitkyiv.transitkyiv.entity.Stops;
@@ -17,7 +16,6 @@ import ua.com.transitkyiv.transitkyiv.service.UsersService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.util.Objects;
 
 @Controller
@@ -97,11 +95,18 @@ public class UsersController {
 
     // обработка регистрации пользователя
     @PostMapping("/registration")
-    public String addUserToDB(@Valid Users users, BindingResult bindingResult, Model model){
+    public String addUserToDB(Users users, Model model){
         // проверка на ошибки и на существование пользователя с таким же логином
-        if(bindingResult.hasErrors() || usersService.isUserByUserName(users.getUserName())){
+        if(usersService.isUserByUserName(users.getUserName())){
+            model.addAttribute("invalidInput", "Користувач с таким логіном вже існує");
             return "registration";
-        }else {
+        } else if (users.getUserName().length() < 6) {
+            model.addAttribute("invalidInput", "Логін має бути не менше 6 символів");
+            return "registration";
+        } else if (users.getTkpassword().length() < 6) {
+            model.addAttribute("invalidInput", "Пароль має бути не менше 6 символів");
+            return "registration";
+        } else {
             // добавляем нового пользователя
             usersService.saveNewUser(users);
             // устанавливаем новому пользователю роль user

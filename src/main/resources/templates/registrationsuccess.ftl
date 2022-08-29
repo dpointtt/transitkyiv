@@ -18,7 +18,7 @@
 <div class="container text-center" style="margin-top: 120px; margin-bottom: 100px;">
     <h1 class="gradtxt">Дякуємо!</h1>
     <h2 class="deftxt">Реєстрація пройшла успішно!</h2>
-    <h2 class="deftxt">Тепер натисніть <a href="redirect:/login" class="noline">сюди</a> щоб увійти в систему.</h2>
+    <h2 class="deftxt">Тепер натисніть <a href="/login" class="noline">сюди</a> щоб увійти в систему.</h2>
 </div>
 
 </body>
