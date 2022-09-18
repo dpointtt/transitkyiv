@@ -15,20 +15,28 @@
 
 <#include "parts/navbar.ftl">
 
-<!--FindPanel-->>
+<!--FindPanel-->
 
-<div class="container text-center" style="margin-top: 120px; margin-bottom: 30px;">
+<div class="container text-center justify-content-center" style="margin-top: 120px; margin-bottom: 30px;">
     <h2 class="deftxt mb-4">Пошук маршруту</h2>
-    <h2 class="deftxt float-start" style="margin-left: 18%; font-size: 30px;">Від:</h2>
-    <h2 class="deftxt float-end" style="margin-right: 19%; font-size: 30px;">До:</h2>
     <form action="/find-route" method="post" class="mb-5 mt-4">
-        <div class="input-group text-center">
-            <input type="text" name="fromAddress" class="form-control bg-light" placeholder="наприкл.: вулиця Льва Толстого" aria-label="FromAddress">
-            <span class="input-group-text bg-white btn-outline-light"><img src="/img/svg/LineImg.svg" alt="" style="width: 200px; height: auto;"></span>
-            <input type="text" name="toAddress" class="form-control bg-light" placeholder="наприкл.: вулиця Сім'ї Сосніних" aria-label="ToAddress">
-            <div class="input-group mb-3 mt-3">
-                <label class="input-group-text" for="inputGroupSelect01">Транспорт</label>
-                <select name="transport" class="form-select" id="inputGroupSelect01">
+        <div class="input-group text-center justify-content-center" style="display: inline !important; white-space: nowrap">
+            <div class="autocomplete w-50">
+                <label class="form-label deftxt" for="fromInput">Від:</label>
+                <input id="fromInput" type="text" name="fromAddress" class="form-control form-control-lg bg-light" placeholder="наприкл.: вулиця Льва Толстого" aria-label="FromAddress" autocomplete="on">
+            </div>
+            <div class="autocomplete w-50">
+                <label class="form-label deftxt" for="toInput">До:</label>
+                <input id="toInput" type="text" name="toAddress" class="form-control form-control-lg bg-light" placeholder="наприкл.: вулиця Сім'ї Сосніних" aria-label="ToAddress" autocomplete="on">
+            </div>
+            <div>
+                <span class="input-group-text bg-white btn-outline-light justify-content-center text-center border-0 mt-2 mb-2">
+                    <img src="/img/svg/LineImg.svg" alt="" style="max-width: 200px; height: auto;">
+                </span>
+            </div>
+            <div class="input-group mb-3 mt-4 w-50 justify-content-center align-items-center text-center me-0" style="margin-left: 25%">
+                <label class="input-group-text deftxt" for="inputGroupSelect01">Транспорт</label>
+                <select name="transport" class="form-select form-select-lg" id="inputGroupSelect01">
                     <option value="" selected>Будь-який</option>
                     <option value="Маршрутка">Маршрутка</option>
                     <option value="Трамвай">Трамвай</option>
@@ -58,6 +66,13 @@
 </div>
 
 <#include "parts/author.ftl">
+
+<script src="/js/Autocomplete.js"></script>
+<script>
+    var stopsArr = [<#list stopsList as stopItem>'${stopItem.stopAddress?string}',</#list>]
+    autocomplete(document.getElementById("fromInput"), stopsArr);
+    autocomplete(document.getElementById("toInput"), stopsArr);
+</script>
 
 </body>
 </html>

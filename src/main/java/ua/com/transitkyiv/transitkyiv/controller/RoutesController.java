@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.transitkyiv.transitkyiv.entity.Users;
 import ua.com.transitkyiv.transitkyiv.service.RoutesService;
+import ua.com.transitkyiv.transitkyiv.service.StopsService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,11 +24,13 @@ public class RoutesController {
 
     // сервис маршрутов
     private final RoutesService routesService;
+    private final StopsService stopsService;
 
     // связываем с контроллером
     @Autowired
-    public RoutesController(RoutesService routesService){
+    public RoutesController(RoutesService routesService, StopsService stopsService){
         this.routesService = routesService;
+        this.stopsService = stopsService;
     }
 
     // прослушивание страницы "Список маршрутов"
@@ -76,6 +79,7 @@ public class RoutesController {
         }else{
             // передаем список маршрутов(так как мы их еще не искали, то передаем все)
             model.addAttribute("froutes", routesService.getAllRoutes());
+            model.addAttribute("stopsList", stopsService.getAllStops());
             return "findroute";
         }
     }
@@ -91,6 +95,7 @@ public class RoutesController {
         }else{
             model.addAttribute("froutes", routesService.getRoutesFromToByTransport(fromAddress, toAddress, transport));
         }
+        model.addAttribute("stopsList", stopsService.getAllStops());
         return "findroute";
     }
 
